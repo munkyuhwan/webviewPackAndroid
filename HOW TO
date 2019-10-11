@@ -1,0 +1,27 @@
+private WebPackMain wp;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        wp = new WebPackMain(this);
+        wp.init(getString(R.string.webview_url), (ConstraintLayout)findViewById(R.id.main_layout) )
+                //.addPermissionList(Manifest.permission.READ_EXTERNAL_STORAGE)
+                //.addPermissionList(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                //.addPermissionList(Manifest.permission.ACCESS_COARSE_LOCATION)
+                //.addPermissionList(Manifest.permission.ACCESS_FINE_LOCATION)
+                //.requestPermissionList()
+                //.kakaoSetting(true)
+                //.facebookSetting(true);
+                .startLoadingWebview();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        wp.backPressClose();
+        Log.d("tag","on backpress");
+    }
+}
+
