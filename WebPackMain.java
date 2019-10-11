@@ -2,11 +2,14 @@ package com.WebviewPack;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.util.Log;
 import android.webkit.ValueCallback;
 import android.webkit.WebView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -73,6 +76,25 @@ public class WebPackMain extends AppCompatActivity implements WebviewJavascriptI
         }
     }
 
+    public void requestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+       if (requestCode == REQUEST_PERMISSION_CODE) {
+           if ( !setPermission.checkPermission() ) {
+
+               mMainActivity.runOnUiThread(new Runnable() {
+                   @Override
+                   public void run() {
+                       Toast.makeText(mMainActivity.getApplicationContext(),mMainActivity.getString(R.string.app_dismiss),Toast.LENGTH_SHORT).show();
+                       mMainActivity.finish();
+                   }
+               });
+
+           } else {
+
+           }
+       }
+    }
+
     public WebPackMain addPermissionList(String permissionList) {
         setPermission.addPermission(permissionList);
         return this;
@@ -85,7 +107,6 @@ public class WebPackMain extends AppCompatActivity implements WebviewJavascriptI
 
     public void startLoadingWebview() {
         mWebview.loadUrl(url);//웹뷰 로드
-
     }
 
     public WebPackMain kakaoSetting(boolean setBool) {
@@ -115,8 +136,7 @@ public class WebPackMain extends AppCompatActivity implements WebviewJavascriptI
 
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         /*
@@ -145,6 +165,8 @@ public class WebPackMain extends AppCompatActivity implements WebviewJavascriptI
         }
 
     }
+
+
 
 
     @Override
