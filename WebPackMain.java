@@ -30,7 +30,6 @@ public class WebPackMain extends AppCompatActivity implements WebviewJavascriptI
     private String url;
     private BackPressHandler backPressCloseHandler;
 
-
     private int REQUEST_PERMISSION_CODE = 998;
 
     private static final int RC_FILE_CHOOSE = 2833;
@@ -64,37 +63,6 @@ public class WebPackMain extends AppCompatActivity implements WebviewJavascriptI
         return this;
     }
 
-    public void backPressClose() {
-        if (mWebview.canGoBack()) {
-            if (mWebview.getUrl().equals(mMainActivity.getString(R.string.webview_url))) {
-                backPressCloseHandler.onBackPressed();
-            }else {
-                mWebview.goBack();
-            }
-        }else {
-            backPressCloseHandler.onBackPressed();
-        }
-    }
-
-    public void requestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-       if (requestCode == REQUEST_PERMISSION_CODE) {
-           if ( !setPermission.checkPermission() ) {
-
-               mMainActivity.runOnUiThread(new Runnable() {
-                   @Override
-                   public void run() {
-                       Toast.makeText(mMainActivity.getApplicationContext(),mMainActivity.getString(R.string.app_dismiss),Toast.LENGTH_SHORT).show();
-                       mMainActivity.finish();
-                   }
-               });
-
-           } else {
-
-           }
-       }
-    }
-
     public WebPackMain addPermissionList(String permissionList) {
         setPermission.addPermission(permissionList);
         return this;
@@ -103,10 +71,6 @@ public class WebPackMain extends AppCompatActivity implements WebviewJavascriptI
     public WebPackMain requestPermissionList() {
         setPermission.checkPermissions();
         return this;
-    }
-
-    public void startLoadingWebview() {
-        mWebview.loadUrl(url);//웹뷰 로드
     }
 
     public WebPackMain kakaoSetting(boolean setBool) {
@@ -125,6 +89,10 @@ public class WebPackMain extends AppCompatActivity implements WebviewJavascriptI
     }
 
 
+    public void startLoadingWebview() {
+        mWebview.loadUrl(url);//웹뷰 로드
+    }
+
     private void kakaoSetting(ConstraintLayout constraintLayout) {
         setKakaoLogin = new SetKakaoLogin(mWebview, this.mMainActivity, constraintLayout);
     }
@@ -134,6 +102,37 @@ public class WebPackMain extends AppCompatActivity implements WebviewJavascriptI
         setFacebookLogin.init();
     }
 
+
+    public void backPressClose() {
+        if (mWebview.canGoBack()) {
+            if (mWebview.getUrl().equals(mMainActivity.getString(R.string.webview_url))) {
+                backPressCloseHandler.onBackPressed();
+            }else {
+                mWebview.goBack();
+            }
+        }else {
+            backPressCloseHandler.onBackPressed();
+        }
+    }
+
+    public void requestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if (requestCode == REQUEST_PERMISSION_CODE) {
+            if ( !setPermission.checkPermission() ) {
+
+                mMainActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(mMainActivity.getApplicationContext(),mMainActivity.getString(R.string.app_dismiss),Toast.LENGTH_SHORT).show();
+                        mMainActivity.finish();
+                    }
+                });
+
+            } else {
+
+            }
+        }
+    }
 
 
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
