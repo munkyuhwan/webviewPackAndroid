@@ -67,3 +67,9 @@
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
     
     apply plugin: 'com.google.gms.google-services'
+  
+# 8. style.xml
+
+
+    <string name="webview_url">URL</string>
+    <string name="app_dismiss">허용후 이용할 수 있습니다.</string>
