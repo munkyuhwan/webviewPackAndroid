@@ -51,6 +51,19 @@
             super.onActivityResult(requestCode, resultCode, data);
             wp.onActivityResult(requestCode, resultCode, data);
         }
+# 6. Manifest
+    
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+# 7. gradle
 
+    classpath 'com.google.gms:google-services:4.3.2'
 
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
+    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation 'com.google.firebase:firebase-messaging:17.3.3'
+    implementation 'com.google.android.gms:play-services-auth:15.0.1'
+    
+    apply plugin: 'com.google.gms.google-services'
