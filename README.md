@@ -14,7 +14,7 @@
          .addPermissionList(Manifest.permission.WRITE_EXTERNAL_STORAGE)
          .requestPermissionList()
          .kakaoSetting(true)
-         .facebookSetting(true);
+         .facebookSetting(true)
          .startLoadingWebview();
                 
     메소드 설명
